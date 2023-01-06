@@ -1,5 +1,5 @@
 import {useRecoilState} from "recoil";
-import {counterAtom} from "../../recoil/counterAtom";
+import {counterAtom} from "../../utils/recoil/counterAtom";
 
 const BookingsPage = () => {
 
