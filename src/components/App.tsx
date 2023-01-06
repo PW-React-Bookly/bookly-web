@@ -1,6 +1,6 @@
 import React from 'react';
 import {RecoilRoot} from "recoil";
-import AppBar from "./view/AppBar";
+import AppBar from "./AppBar";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import Error404 from "./Error404";
