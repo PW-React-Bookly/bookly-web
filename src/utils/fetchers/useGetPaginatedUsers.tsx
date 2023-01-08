@@ -9,29 +9,35 @@ import {useEffect, useState} from "react";
 const useGetPaginatedUsers = (args: PaginatedFetcherArgs) => {
 
     const [isLoading, setIsLoading] = useState(true);
-    const [isSuccess, setIsSuccess] = useState(true);
+    const [isSuccess, setIsSuccess] = useState(false);
     const [error, setError] = useState('');
     const [data, setData] = useState<UserInterface[]>([]);
+
+    const baseUrl = process.env.REACT_APP_BOOKLY_BACKEND_URL;
+    const endpointUrl = '/users';
+    const fetchUrl = baseUrl + endpointUrl;
 
     useEffect(() =>
         {
             setIsLoading(true);
-            setData(args.requestedPage===1? mockUsers1: args.requestedPage===2? mockUsers2: []);
-            new Promise(resolve => setTimeout(resolve, 2000)).then(
-                ()=> {
-                    setIsLoading(false);
-                })
+            fetch(fetchUrl,{
+                method : "GET",
+                mode: 'cors'
+            }
+            ).then(async (response) => {
+                if (!response.ok)
+                    throw Error(response.statusText);
+                const users: UserInterface[] = await response.json();
+                setData(users);
+                setIsSuccess(true);
+                setIsLoading(false);
+            }).catch((error) => {
+                setError(error.toString());
+                setIsLoading(false);
+            });
         },
         [args.requestedPage])
 
-    const mockUsers1: UserInterface[] = [
-        {firstName: 'Igor', lastName: 'Faliszewski', email: 'igorfaliszewski.pw.edu.pl', passwordHash: 'a9[nbfji'},
-        {firstName: 'Jakub', lastName: 'Borek', email: 'jakubborek.pw.edu.pl', passwordHash: 'avm[5fdx'}
-    ]
-    const mockUsers2: UserInterface[] = [
-        {firstName: 'Filip', lastName: 'Suchorab', email: 'filipsuchorab.pw.edu.pl', passwordHash: 'a7258vn0'},
-        {firstName: 'Jakub', lastName: 'Górka', email: 'jakubgorka.pw.edu.pl', passwordHash: 'fr6dcnya'}
-    ]
     const result: FetcherReturnInterface ={
         data: data,
         isLoading: isLoading, isSuccess: isSuccess, error: error
