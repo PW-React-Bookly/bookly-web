@@ -1,14 +1,10 @@
-import {useRecoilState} from "recoil";
-import {counterAtom} from "../../utils/recoil/counterAtom";
+import BookingsTable from "./BookingsTable";
 
 const BookingsPage = () => {
 
-    const [counter, setCounter] = useRecoilState(counterAtom);
-
     return (
         <div>
-            <div>Hello Bookly from Bookings! {counter>1 && 'x'+counter}</div>
-            <button onClick={()=>setCounter(counter+1)}>Hi</button>
+            <BookingsTable data={[]}/>
         </div>
     )
 }
