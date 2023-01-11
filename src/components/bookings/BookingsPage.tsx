@@ -1,10 +1,20 @@
 import BookingsTable from "./BookingsTable";
+import PaginatedFetcher from "../util/PaginatedFetcher";
+import PaginationWrapper from "../util/PaginationWrapper";
+import {BookingInterface} from "../../utils/interfaces/BookingInterface";
+import useGetPaginatedBookings from "../../utils/fetchers/useGetPaginatedBookings";
 
 const BookingsPage = () => {
 
     return (
         <div>
-            <BookingsTable data={[]}/>
+            <PaginationWrapper>
+                <PaginatedFetcher paginatedFetcher={useGetPaginatedBookings}>
+                    {(data: BookingInterface[]) =>
+                        <BookingsTable data={data}/>
+                    }
+                </PaginatedFetcher>
+            </PaginationWrapper>
         </div>
     )
 }

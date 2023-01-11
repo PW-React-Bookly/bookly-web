@@ -1,6 +1,6 @@
 import {Table} from "react-bootstrap";
-import UsersTableRow from "../users/UsersTableRow";
-import {BookingInterface, BookingType} from "../../utils/interfaces/BookingInterface";
+import {BookingInterface} from "../../utils/interfaces/BookingInterface";
+import BookingsTableRow from "./BookingsTableRow";
 
 const BookingsTable = (props: {data: BookingInterface[]}) => {
     return (
@@ -8,7 +8,6 @@ const BookingsTable = (props: {data: BookingInterface[]}) => {
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Email</th>
                     <th>Last Name</th>
                     <th>First Name</th>
                     <th>Booking Type</th>
@@ -17,7 +16,7 @@ const BookingsTable = (props: {data: BookingInterface[]}) => {
             </thead>
             <tbody>
                 {props.data.map((booking, id) =>
-                    <p>id</p>
+                    <BookingsTableRow id={id} booking={booking}/>
                 )}
             </tbody>
         </Table>
