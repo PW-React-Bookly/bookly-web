@@ -16,7 +16,6 @@ const useGetPaginatedUsers = (args: GetPaginatedUserArgsInterface) => {
 
     useEffect(() =>
         {
-            console.log(baseUrl);
             setIsLoading(true);
             fetch(fetchUrl,{
                 method : "GET",
