@@ -3,11 +3,12 @@ import {Pagination} from "react-bootstrap";
 import {PaginationContextInterface} from "../../utils/interfaces/paginationContextInterface";
 
 const defaultPageSize = 10;
-export const PaginationContext = React.createContext<PaginationContextInterface>({currentPage: 1, pageSize: defaultPageSize});
+const defaultPageContext = {currentPage: 0, pageSize: defaultPageSize};
+export const PaginationContext = React.createContext<PaginationContextInterface>(defaultPageContext);
 
 const PaginationWrapper = (props : {children: React.ReactNode}) => {
 
-    const [pageContext, setPageContext] = useState<PaginationContextInterface>({currentPage: 1, pageSize: defaultPageSize});
+    const [pageContext, setPageContext] = useState<PaginationContextInterface>(defaultPageContext);
 
     const previousPage = () => {
         setPageContext((prev)=>({...prev, currentPage: prev.currentPage-1}));
@@ -18,6 +19,7 @@ const PaginationWrapper = (props : {children: React.ReactNode}) => {
     const jumpPage = (pageId: number) => {
         setPageContext((prev)=>({...prev, currentPage: pageId}));
     }
+    const pageToViewPage = (pageId: number) => pageId+1;
 
     return (
         <div>
@@ -25,31 +27,30 @@ const PaginationWrapper = (props : {children: React.ReactNode}) => {
                 {props.children}
             </PaginationContext.Provider>
             <Pagination>
-                {pageContext.currentPage > 1 &&
+                {pageContext.currentPage > 0 &&
                     <>
-                        <Pagination.First  onClick={()=>jumpPage(1)} />
                         <Pagination.Prev  onClick={previousPage}/>
                     </>}
-                {pageContext.currentPage >= 4 &&
+                {pageContext.currentPage >= 3 &&
                     <>
-                        <Pagination.Item onClick={()=>jumpPage(1)}>{1}</Pagination.Item>
+                        <Pagination.Item onClick={()=>jumpPage(0)}>{1}</Pagination.Item>
                         <Pagination.Ellipsis />
                     </>}
 
-                {pageContext.currentPage < 3 ?
+                {pageContext.currentPage < 2 ?
                     <>
-                        <Pagination.Item active={pageContext.currentPage == 1} onClick={() => jumpPage(1)}>{1}</Pagination.Item>
-                        <Pagination.Item active={pageContext.currentPage == 2} onClick={() => jumpPage(2)}>{2}</Pagination.Item>
-                        <Pagination.Item active={pageContext.currentPage > 2} onClick={() => jumpPage(3)}>{3}</Pagination.Item>
-                        <Pagination.Item onClick={() => jumpPage(4)}>{4}</Pagination.Item>
-                        <Pagination.Item onClick={() => jumpPage(5)}>{5}</Pagination.Item>
+                        <Pagination.Item active={pageContext.currentPage == 0} onClick={() => jumpPage(0)}>{pageToViewPage(0)}</Pagination.Item>
+                        <Pagination.Item active={pageContext.currentPage == 1} onClick={() => jumpPage(1)}>{pageToViewPage(1)}</Pagination.Item>
+                        <Pagination.Item active={pageContext.currentPage > 3} onClick={() => jumpPage(2)}>{pageToViewPage(2)}</Pagination.Item>
+                        <Pagination.Item onClick={() => jumpPage(3)}>{pageToViewPage(3)}</Pagination.Item>
+                        <Pagination.Item onClick={() => jumpPage(4)}>{pageToViewPage(4)}</Pagination.Item>
                     </>:
                     <>
-                        <Pagination.Item onClick={()=>jumpPage(pageContext.currentPage-2)}>{pageContext.currentPage-2}</Pagination.Item>
-                        <Pagination.Item onClick={() => jumpPage(pageContext.currentPage-1)}>{pageContext.currentPage-1}</Pagination.Item>
-                        <Pagination.Item active>{pageContext.currentPage}</Pagination.Item>
-                        <Pagination.Item onClick={() => jumpPage(pageContext.currentPage+1)}>{pageContext.currentPage+1}</Pagination.Item>
-                        <Pagination.Item onClick={() => jumpPage(pageContext.currentPage+2)}>{pageContext.currentPage+2}</Pagination.Item>
+                        <Pagination.Item onClick={()=>jumpPage(pageContext.currentPage-2)}>{pageToViewPage(pageContext.currentPage-2)}</Pagination.Item>
+                        <Pagination.Item onClick={() => jumpPage(pageContext.currentPage-1)}>{pageToViewPage(pageContext.currentPage-1)}</Pagination.Item>
+                        <Pagination.Item active>{pageToViewPage(pageContext.currentPage)}</Pagination.Item>
+                        <Pagination.Item onClick={() => jumpPage(pageContext.currentPage+1)}>{pageToViewPage(pageContext.currentPage+1)}</Pagination.Item>
+                        <Pagination.Item onClick={() => jumpPage(pageContext.currentPage+2)}>{pageToViewPage(pageContext.currentPage+2)}</Pagination.Item>
                     </>
                 }
                 <Pagination.Next onClick={nextPage} />
