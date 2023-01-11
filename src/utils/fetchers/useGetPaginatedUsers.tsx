@@ -1,12 +1,11 @@
 import {UserInterface} from "../interfaces/UserInterface";
-import {PaginatedFetcherArgs} from "../interfaces/paginatedFetcherArgs";
 import {FetcherReturnInterface} from "../interfaces/fetcherReturnInterface";
 import {useEffect, useState} from "react";
 
 // ATENCIÓN!
 // This is a mock implementation to be substituted for the real thing
 
-const useGetPaginatedUsers = (args: PaginatedFetcherArgs) => {
+const useGetPaginatedUsers = (args: any) => {
 
     const [isLoading, setIsLoading] = useState(true);
     const [isSuccess, setIsSuccess] = useState(false);
@@ -14,11 +13,12 @@ const useGetPaginatedUsers = (args: PaginatedFetcherArgs) => {
     const [data, setData] = useState<UserInterface[]>([]);
 
     const baseUrl = process.env.REACT_APP_BOOKLY_BACKEND_URL;
-    const endpointUrl = '/users';
+    const endpointUrl = `/users?page=${args.currentPage}&pageSize=${args.pageSize}`;
     const fetchUrl = baseUrl + endpointUrl;
 
     useEffect(() =>
         {
+            console.log(baseUrl);
             setIsLoading(true);
             fetch(fetchUrl,{
                 method : "GET",
