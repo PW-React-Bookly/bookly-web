@@ -36,7 +36,7 @@ const useGetPaginatedUsers = (args: any) => {
                 setIsLoading(false);
             });
         },
-        [args.requestedPage])
+        [args.currentPage])
 
     const result: FetcherReturnInterface ={
         data: data,
