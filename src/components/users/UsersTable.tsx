@@ -11,6 +11,7 @@ const UsersTable = (props: {data: UserInterface[]}) => {
                 <th>Email</th>
                 <th>Last Name</th>
                 <th>First Name</th>
+                <th>Ban</th>
             </tr>
             </thead>
             <tbody>
