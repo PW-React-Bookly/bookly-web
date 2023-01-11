@@ -1,9 +1,8 @@
 import BookingsTable from "./BookingsTable";
-import PaginatedFetcher from "../util/PaginatedFetcher";
 import PaginationWrapper from "../util/PaginationWrapper";
 import {BookingInterface} from "../../utils/interfaces/BookingInterface";
-import useGetPaginatedBookings from "../../utils/fetchers/useGetPaginatedBookings";
 import SearchPanel from "./search/SearchPanel";
+import BookingsFetcher from "./BookingsFetcher";
 
 const BookingsPage = () => {
 
@@ -11,11 +10,11 @@ const BookingsPage = () => {
         <div>
             <SearchPanel/>
             <PaginationWrapper>
-                <PaginatedFetcher paginatedFetcher={useGetPaginatedBookings}>
+                <BookingsFetcher>
                     {(data: BookingInterface[]) =>
                         <BookingsTable data={data}/>
                     }
-                </PaginatedFetcher>
+                </BookingsFetcher>
             </PaginationWrapper>
         </div>
     )

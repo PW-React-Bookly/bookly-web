@@ -1,10 +1,9 @@
 import {UserInterface} from "../interfaces/UserInterface";
-import {PaginatedFetcherArgs} from "../interfaces/paginatedFetcherArgs";
 import {FetcherReturnInterface} from "../interfaces/fetcherReturnInterface";
 import {useEffect, useState} from "react";
 import {BookingInterface, BookingType} from "../interfaces/BookingInterface";
 
-const useGetPaginatedBookings = (args: PaginatedFetcherArgs) => {
+const useGetPaginatedBookings = (args: any) => {
 
     const [isLoading, setIsLoading] = useState(true);
     const [isSuccess, setIsSuccess] = useState(true);
@@ -14,8 +13,8 @@ const useGetPaginatedBookings = (args: PaginatedFetcherArgs) => {
     useEffect(() =>
         {
             setIsLoading(true);
-            setData(args.requestedPage===1? [mockBookings[0], mockBookings[1]]:
-                args.requestedPage===2 ? [mockBookings[2], mockBookings[3]]: []);
+            setData(args.currentPage===1? [mockBookings[0], mockBookings[1]]:
+                args.currentPage===2 ? [mockBookings[2], mockBookings[3]]: []);
             new Promise(resolve => setTimeout(resolve, 2000)).then(
                 ()=> {
                     setIsLoading(false);
@@ -24,8 +23,8 @@ const useGetPaginatedBookings = (args: PaginatedFetcherArgs) => {
         [args.requestedPage])
 
     const mockUsers1: UserInterface[] = [
-        {firstName: 'Igor', lastName: 'Faliszewski', email: 'igorfaliszewski.pw.edu.pl', passwordHash: 'a9[nbfji'},
-        {firstName: 'Jakub', lastName: 'Borek', email: 'jakubborek.pw.edu.pl', passwordHash: 'avm[5fdx'}
+        {firstName: 'Igor', lastName: 'Faliszewski', email: 'igorfaliszewski.pw.edu.pl', id: "123", isActive: true},
+        {firstName: 'Jakub', lastName: 'Borek', email: 'jakubborek.pw.edu.pl', id: "qwe", isActive: true}
     ]
 
     const mockBookings: BookingInterface[] = [
