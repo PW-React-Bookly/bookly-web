@@ -1,11 +1,9 @@
 import {UserInterface} from "../interfaces/UserInterface";
 import {FetcherReturnInterface} from "../interfaces/fetcherReturnInterface";
 import {useEffect, useState} from "react";
+import {GetPaginatedUserArgsInterface} from "../interfaces/getPaginatedUserArgsInterface";
 
-// ATENCIÓN!
-// This is a mock implementation to be substituted for the real thing
-
-const useGetPaginatedUsers = (args: any) => {
+const useGetPaginatedUsers = (args: GetPaginatedUserArgsInterface) => {
 
     const [isLoading, setIsLoading] = useState(true);
     const [isSuccess, setIsSuccess] = useState(false);
