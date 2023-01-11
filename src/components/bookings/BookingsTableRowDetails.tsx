@@ -9,15 +9,17 @@ const BookingsTableRowDetails = (props: {booking: BookingInterface}) => {
 
     const buttonStyle = {
         display: 'flex',
-        gap: 10
+        gap: 30
     }
     return (
         <div>
-            <p>Period: {dateToString(props.booking.dateFrom)} - {dateToString(props.booking.dateTo)}</p>
             <div style={buttonStyle}>
-                <p>Price: {props.booking.price}</p>
-                <Button onClick={() => setModalShow(true)}>
-                    Details
+                <div>
+                    <p>Period: {dateToString(props.booking.dateFrom)} - {dateToString(props.booking.dateTo)}</p>
+                    <p>Price: {props.booking.price}</p>
+                </div>
+                <Button onClick={() => setModalShow(true)} style={{height: "50%"}}>
+                    See More
                 </Button>
             </div>
             <BookingDetailsModal booking={props.booking} show={modalShow} onHide={() => setModalShow(false)}/>
