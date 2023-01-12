@@ -1,7 +1,8 @@
 import {UserInterface} from "../interfaces/UserInterface";
 import {FetcherReturnInterface} from "../interfaces/fetcherReturnInterface";
 import {useEffect, useState} from "react";
-import {BookingInterface, BookingType} from "../interfaces/BookingInterface";
+import {BookingInterface, BookableType} from "../interfaces/BookingInterface";
+import {BookingFilters} from "../interfaces/BookingFilters";
 
 const useGetPaginatedBookings = (args: any) => {
 
@@ -10,53 +11,44 @@ const useGetPaginatedBookings = (args: any) => {
     const [error, setError] = useState('');
     const [data, setData] = useState<BookingInterface[]>([]);
 
+    const baseUrl = process.env.REACT_APP_BOOKLY_BACKEND_URL;
+    const endpointUrl = `/bookings?page=${args.pageContext.currentPage - 1}&pageSize=${args.pageContext.pageSize}`;
+    const filters: BookingFilters = args.filters;
+
     useEffect(() =>
         {
             setIsLoading(true);
-            setData(args.currentPage===1? [mockBookings[0], mockBookings[1]]:
-                args.currentPage===2 ? [mockBookings[2], mockBookings[3]]: []);
-            new Promise(resolve => setTimeout(resolve, 2000)).then(
-                ()=> {
-                    setIsLoading(false);
-                })
+            fetch(buildUrl(),{
+                    method : "GET",
+                    mode: 'cors'
+                }
+            ).then(async (response) => {
+                if (!response.ok)
+                    throw Error(response.statusText);
+                const bookings: BookingInterface[] = await response.json();
+                setData(bookings);
+                setIsSuccess(true);
+                setIsLoading(false);
+            }).catch((error) => {
+                setError(error.toString());
+                setIsLoading(false);
+            });
         },
-        [args.requestedPage])
+        [args.requestedPage, filters])
 
-    const mockUsers1: UserInterface[] = [
-        {firstName: 'Igor', lastName: 'Faliszewski', email: 'igorfaliszewski.pw.edu.pl', id: "123", isActive: true},
-        {firstName: 'Jakub', lastName: 'Borek', email: 'jakubborek.pw.edu.pl', id: "qwe", isActive: true}
-    ]
-
-    const mockBookings: BookingInterface[] = [
-        {
-            user: mockUsers1[0],
-            bookingType: BookingType.Car,
-            dateFrom: new Date("2001-02-24"),
-            dateTo: new Date("2002-02-24"),
-            price: 9
-        },
-        {
-            user: mockUsers1[1],
-            bookingType: BookingType.Flat,
-            dateFrom: new Date("2003-02-24"),
-            dateTo: new Date("2004-02-24"),
-            price: 18
-        },
-        {
-            user: mockUsers1[0],
-            bookingType: BookingType.Park,
-            dateFrom: new Date("2005-02-24"),
-            dateTo: new Date("2006-02-24"),
-            price: 77.99
-        },
-        {
-            user: mockUsers1[1],
-            bookingType: BookingType.Park,
-            dateFrom: new Date("2007-02-24"),
-            dateTo: new Date("2008-02-24"),
-            price: 123.09
-        },
-    ]
+    const buildUrl = () => {
+        let url = baseUrl + endpointUrl;
+        if (filters.firstName != undefined && filters.firstName != "") {
+            url+=`&firstName=${filters.firstName}`
+        }
+        if (filters.lastName != undefined && filters.lastName != "") {
+            url+=`&lastName=${filters.lastName}`
+        }
+        if (filters.bookableType != undefined) {
+            url+=`&bookableType=${filters.bookableType}`
+        }
+        return url;
+    }
 
     const result: FetcherReturnInterface ={
         data: data,

@@ -1,15 +1,18 @@
 import {UserInterface} from "./UserInterface";
 
-export enum BookingType {
+export enum BookableType {
     Flat,
     Car,
     Park
 }
 
 export interface BookingInterface {
+    id: number,
     user: UserInterface,
-    bookingType: BookingType,
-    dateFrom: Date,
-    dateTo: Date,
-    price: number
+    bookableType: BookableType,
+    bookedFrom: Date,
+    bookedUntil: Date,
+    totalPrice: number,
+    itemExternalId: string,
+    isCancelled: boolean,
 }

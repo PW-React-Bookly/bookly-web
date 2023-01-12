@@ -15,8 +15,8 @@ const BookingsTableRowDetails = (props: {booking: BookingInterface}) => {
         <div>
             <div style={buttonStyle}>
                 <div>
-                    <p>Period: {dateToString(props.booking.dateFrom)} - {dateToString(props.booking.dateTo)}</p>
-                    <p>Price: {props.booking.price}</p>
+                    <p>Period: {dateToString(props.booking.bookedFrom)} - {dateToString(props.booking.bookedUntil)}</p>
+                    <p>Price: {props.booking.totalPrice}$</p>
                 </div>
                 <Button onClick={() => setModalShow(true)} style={{height: "50%"}}>
                     See More

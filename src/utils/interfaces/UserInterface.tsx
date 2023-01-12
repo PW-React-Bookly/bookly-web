@@ -1,6 +1,6 @@
 
 export interface UserInterface {
-    id: string,
+    id: number,
     isActive: boolean,
     firstName: string,
     lastName: string,

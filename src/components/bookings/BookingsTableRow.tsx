@@ -1,4 +1,4 @@
-import {BookingInterface, BookingType} from "../../utils/interfaces/BookingInterface";
+import {BookingInterface, BookableType} from "../../utils/interfaces/BookingInterface";
 import BookingsTableRowDetails from "./BookingsTableRowDetails";
 
 const BookingsTableRow = (props: {id: number, booking: BookingInterface}) => {
@@ -7,7 +7,7 @@ const BookingsTableRow = (props: {id: number, booking: BookingInterface}) => {
             <td >{props.id + 1}</td>
             <td>{props.booking.user.lastName}</td>
             <td>{props.booking.user.firstName}</td>
-            <td>{BookingType[props.booking.bookingType]}</td>
+            <td>{props.booking.bookableType}</td>
             <td><BookingsTableRowDetails booking={props.booking}/></td>
         </tr>
     );

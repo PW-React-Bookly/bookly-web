@@ -1,15 +1,21 @@
 import {Button, Dropdown, DropdownButton, Form, InputGroup} from "react-bootstrap";
 import React, {useState} from "react";
-import {BookingType} from "../../../utils/interfaces/BookingInterface";
+import {BookableType} from "../../../utils/interfaces/BookingInterface";
+import {BookingFilters} from "../../../utils/interfaces/BookingFilters";
 
-const SearchPanel = () => {
-    const [bookingType, setBookingType] = useState<string | null>(null);
-    const [firstName, setFirstName] = useState<string | null>(null);
-    const [lastName, setLastName] = useState<string | null>(null);
+const SearchPanel = (props : {setFilters: (filters: BookingFilters) => void}) => {
+    const [bookableType, setBookableType] = useState<BookableType | undefined>();
+    const [firstName, setFirstName] = useState<string| undefined>();
+    const [lastName, setLastName] = useState<string | undefined>();
 
-    const handleSelect = (e: any) => {
-        setBookingType(e);
+    const handleSetBookableType = (e: any) => {
+        setBookableType(e);
     }
+
+    const search = () => {
+        props.setFilters({bookableType: bookableType, firstName: firstName, lastName: lastName});
+    }
+
     return (
         <div>
             <Form className="w-25 m-3">
@@ -30,27 +36,27 @@ const SearchPanel = () => {
                         <InputGroup>
                             <DropdownButton
                                 variant="outline-secondary"
-                                title={bookingType != null? bookingType : "Select type"}
+                                title={bookableType != undefined? bookableType : "Select type"}
                                 id="input-group-dropdown-1"
-                                onSelect={handleSelect}>
-                                <Dropdown.Item eventKey={BookingType[BookingType.Flat]}>
-                                    {BookingType[BookingType.Flat]}
+                                onSelect={handleSetBookableType}>
+                                <Dropdown.Item eventKey={BookableType[BookableType.Flat]}>
+                                    {BookableType[BookableType.Flat]}
                                 </Dropdown.Item>
-                                <Dropdown.Item eventKey={BookingType[BookingType.Car]}>
-                                    {BookingType[BookingType.Car]}
+                                <Dropdown.Item eventKey={BookableType[BookableType.Car]}>
+                                    {BookableType[BookableType.Car]}
                                 </Dropdown.Item>
-                                <Dropdown.Item eventKey={BookingType[BookingType.Park]}>
-                                    {BookingType[BookingType.Park]}
+                                <Dropdown.Item eventKey={BookableType[BookableType.Park]}>
+                                    {BookableType[BookableType.Park]}
                                 </Dropdown.Item>
                             </DropdownButton>
                             <Button
                                 variant="outline-secondary"
-                                onClick={() => setBookingType(null)}>
+                                onClick={() => setBookableType(undefined)}>
                                 Clear
                             </Button>
                         </InputGroup>
                     </div>
-                    <Button variant="primary" className="ms-auto align-self-end me-2 mb-2">
+                    <Button variant="primary" onClick={search} className="ms-auto align-self-end me-2 mb-2">
                         Search
                     </Button>
                 </div>

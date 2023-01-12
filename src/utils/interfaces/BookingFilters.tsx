@@ -1,7 +1,7 @@
-import {BookingType} from "./BookingInterface";
+import {BookableType} from "./BookingInterface";
 
 export interface BookingFilters {
-    bookingType?: BookingType,
-    firstNameQuery?: string,
-    lastNameQuery?: string
+    bookableType?: BookableType,
+    firstName?: string,
+    lastName?: string
 }

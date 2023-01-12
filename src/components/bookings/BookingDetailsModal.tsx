@@ -17,11 +17,11 @@ const BookingDetailsModal = (props: {booking: BookingInterface, onHide: () => vo
                 <Modal.Body>
 
                     <h4>Booking period</h4>
-                    <p>From: {dateToString(props.booking.dateFrom)}</p>
-                    <p>To: {dateToString(props.booking.dateTo)}</p>
+                    <p>From: {dateToString(props.booking.bookedFrom)}</p>
+                    <p>To: {dateToString(props.booking.bookedUntil)}</p>
 
                     <h4>Details</h4>
-                    <p>Price: {props.booking.price}$</p>
+                    <p>Price: {props.booking.totalPrice}$</p>
 
                     <h4>Description</h4>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
