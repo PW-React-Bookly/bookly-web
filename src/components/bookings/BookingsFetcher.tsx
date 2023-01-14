@@ -10,6 +10,7 @@ const BookingsFetcher = (props : {children: (data:any[])=>JSX.Element, filters: 
     const pageContext = useContext(PaginationContext);
     const [localFilters, setLocalFilters] = useState(props.filters);
     useEffect(() => {
+        pageContext.jumpPage(0);
         setLocalFilters(props.filters);
     }, [props.filters]);
 

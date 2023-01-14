@@ -1,7 +1,6 @@
-import {UserInterface} from "../interfaces/UserInterface";
 import {FetcherReturnInterface} from "../interfaces/fetcherReturnInterface";
 import {useEffect, useState} from "react";
-import {BookingInterface, BookableType} from "../interfaces/BookingInterface";
+import {BookingInterface} from "../interfaces/BookingInterface";
 import {BookingFilters} from "../interfaces/BookingFilters";
 
 const useGetPaginatedBookings = (args: any) => {
@@ -12,7 +11,7 @@ const useGetPaginatedBookings = (args: any) => {
     const [data, setData] = useState<BookingInterface[]>([]);
 
     const baseUrl = process.env.REACT_APP_BOOKLY_BACKEND_URL;
-    const endpointUrl = `/bookings?page=${args.pageContext.currentPage - 1}&pageSize=${args.pageContext.pageSize}`;
+    const endpointUrl = `/bookings?page=${args.pageContext.currentPage}&pageSize=${args.pageContext.pageSize}`;
     const filters: BookingFilters = args.filters;
 
     useEffect(() =>

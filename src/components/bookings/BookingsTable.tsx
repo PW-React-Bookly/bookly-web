@@ -16,7 +16,7 @@ const BookingsTable = (props: {data: BookingInterface[]}) => {
             </thead>
             <tbody>
                 {props.data.map((booking, id) =>
-                    <BookingsTableRow id={id} booking={booking}/>
+                    <BookingsTableRow key={id} id={id} booking={booking}/>
                 )}
             </tbody>
         </Table>
