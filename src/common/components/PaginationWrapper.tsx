@@ -1,14 +1,12 @@
 import React, {useState} from "react";
 import {Pagination} from "react-bootstrap";
-import {PaginationContextInterface} from "../../utils/interfaces/paginationContextInterface";
+import {PaginationContextInterface} from "../utils/paginationContextInterface";
 
-const defaultPageSize = 10;
-const defaultPageContext = {currentPage: 0, pageSize: defaultPageSize};
-export const PaginationContext = React.createContext<PaginationContextInterface>(defaultPageContext);
+
+const defaultPaginationContext: PaginationContextInterface = {currentPage: 0, pageSize: 0, jumpPage: ()=>{}}
+export const PaginationContext = React.createContext<PaginationContextInterface>(defaultPaginationContext);
 
 const PaginationWrapper = (props : {children: React.ReactNode}) => {
-
-    const [pageContext, setPageContext] = useState<PaginationContextInterface>(defaultPageContext);
 
     const previousPage = () => {
         setPageContext((prev)=>({...prev, currentPage: prev.currentPage-1}));
@@ -20,6 +18,10 @@ const PaginationWrapper = (props : {children: React.ReactNode}) => {
         setPageContext((prev)=>({...prev, currentPage: pageId}));
     }
     const pageToViewPage = (pageId: number) => pageId+1;
+
+    const defaultPageSize = 10;
+    const initialPaginationContext: PaginationContextInterface = {currentPage: 0, pageSize: defaultPageSize, jumpPage: jumpPage}
+    const [pageContext, setPageContext] = useState<PaginationContextInterface>(initialPaginationContext);
 
     return (
         <div>

@@ -1,7 +1,7 @@
 import React from "react";
-import {FetcherInterface} from "../../utils/interfaces/fetcherInterface";
+import {FetcherInterface} from "../utils/fetcherInterface";
 import {Spinner} from "react-bootstrap";
-import SomethingWentWrong from "../SomethingWentWrong";
+import SomethingWentWrong from "./SomethingWentWrong";
 
 const Fetcher = (props : {children: (data:any[])=>JSX.Element, fetcher: FetcherInterface, args: any}) => {
 

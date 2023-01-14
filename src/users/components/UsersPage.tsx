@@ -1,6 +1,6 @@
-import UsersTable from "./UsersTable";
-import PaginationWrapper from "../util/PaginationWrapper";
-import {UserInterface} from "../../utils/interfaces/UserInterface";
+import UsersTable from "./table/UsersTable";
+import PaginationWrapper from "../../common/components/PaginationWrapper";
+import {UserInterface} from "../interfaces/userInterface";
 import UserFetcher from "./UserFetcher";
 
 const UsersPage = () => {

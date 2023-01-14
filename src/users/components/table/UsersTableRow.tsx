@@ -1,4 +1,4 @@
-import {UserInterface} from "../../utils/interfaces/UserInterface";
+import {UserInterface} from "../../interfaces/userInterface";
 import BanUserButton from "./BanUserButton";
 
 const UsersTableRow = (props: {id: number, user: UserInterface}) => {

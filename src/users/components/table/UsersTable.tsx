@@ -1,5 +1,5 @@
 import {Table} from "react-bootstrap";
-import {UserInterface} from "../../utils/interfaces/UserInterface";
+import {UserInterface} from "../../interfaces/userInterface";
 import UsersTableRow from "./UsersTableRow";
 
 const UsersTable = (props: {data: UserInterface[]}) => {

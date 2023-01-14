@@ -1,9 +1,9 @@
-import {UserInterface} from "../interfaces/UserInterface";
-import {FetcherReturnInterface} from "../interfaces/fetcherReturnInterface";
+import {UserInterface} from "../interfaces/userInterface";
+import {FetcherReturnInterface} from "../../common/utils/fetcherReturnInterface";
 import {useEffect, useState} from "react";
-import {GetPaginatedUserArgsInterface} from "../interfaces/getPaginatedUserArgsInterface";
+import {GetUserArgsInterface} from "../interfaces/getUserArgsInterface";
 
-const useGetPaginatedUsers = (args: GetPaginatedUserArgsInterface) => {
+const useGetUsers = (args: GetUserArgsInterface) => {
 
     const [isLoading, setIsLoading] = useState(true);
     const [isSuccess, setIsSuccess] = useState(false);
@@ -43,4 +43,4 @@ const useGetPaginatedUsers = (args: GetPaginatedUserArgsInterface) => {
     return result;
 }
 
-export default  useGetPaginatedUsers;
+export default  useGetUsers;

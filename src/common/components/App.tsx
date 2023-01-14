@@ -4,8 +4,8 @@ import AppBar from "./AppBar";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import Error404 from "./Error404";
-import UsersPage from "./users/UsersPage";
-import BookingsPage from "./bookings/BookingsPage";
+import UsersPage from "../../users/components/UsersPage";
+import BookingsPage from "../../bookings/components/BookingsPage";
 
 function App() {
   return (
