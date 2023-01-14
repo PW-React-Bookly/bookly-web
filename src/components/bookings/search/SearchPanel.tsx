@@ -21,12 +21,12 @@ const SearchPanel = (props : {setFilters: (filters: BookingFilters) => void}) =>
             <Form className="w-25 m-3">
                 <div className="d-flex flex-row mb-3">
                     <Form.Group className="me-2 flex-fill">
-                        <Form.Label>First Name</Form.Label>
-                        <Form.Control placeholder="Enter first name" onChange={e => setFirstName(e.target.value)}/>
-                    </Form.Group>
-                    <Form.Group className="me-2 flex-fill">
                         <Form.Label>Last Name</Form.Label>
                         <Form.Control placeholder="Enter last name" onChange={e => setLastName(e.target.value)}/>
+                    </Form.Group>
+                    <Form.Group className="me-2 flex-fill">
+                        <Form.Label>First Name</Form.Label>
+                        <Form.Control placeholder="Enter first name" onChange={e => setFirstName(e.target.value)}/>
                     </Form.Group>
                 </div>
 

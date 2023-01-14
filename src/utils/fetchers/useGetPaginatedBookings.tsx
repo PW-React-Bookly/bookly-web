@@ -34,7 +34,7 @@ const useGetPaginatedBookings = (args: any) => {
                 setIsLoading(false);
             });
         },
-        [args.requestedPage, filters])
+        [args.pageContext.currentPage, filters])
 
     const buildUrl = () => {
         let url = baseUrl + endpointUrl;

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Pagination} from "react-bootstrap";
 import {PaginationContextInterface} from "../../utils/interfaces/paginationContextInterface";
 
@@ -18,6 +18,10 @@ const PaginationWrapper = (props : {children: React.ReactNode}) => {
     const jumpPage = (pageId: number) => {
         setPageContext((prev)=>({...prev, currentPage: pageId}));
     }
+
+    // useEffect(() => {
+    //     jumpPage(1);
+    // }, [pageContext.currentPage]);
 
     return (
         <div>
