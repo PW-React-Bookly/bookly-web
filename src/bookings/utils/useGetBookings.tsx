@@ -12,7 +12,7 @@ const useGetBookings = (args: GetBookingsArgsInterface) => {
     const [data, setData] = useState<BookingInterface[]>([]);
 
     const baseUrl = process.env.REACT_APP_BOOKLY_BACKEND_URL;
-    const endpointUrl = `/bookings?page=${args.pageContext.currentPage}&pageSize=${args.pageContext.pageSize}`;
+    const endpointUrl = `/bookings?page=${args.pageContext.currentPage}&size=${args.pageContext.pageSize}`;
     const filters: BookingFiltersInterface = args.filters;
 
     useEffect(() =>
