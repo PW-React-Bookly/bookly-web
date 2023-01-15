@@ -11,7 +11,7 @@ const useGetUsers = (args: GetUserArgsInterface) => {
     const [data, setData] = useState<UserInterface[]>([]);
 
     const baseUrl = process.env.REACT_APP_BOOKLY_BACKEND_URL;
-    const endpointUrl = `/users?page=${args.currentPage}&size=${args.pageSize}`;
+    const endpointUrl = `/users?page=${args.currentPage}&pageSize=${args.pageSize}`;
     const fetchUrl = baseUrl + endpointUrl;
 
     useEffect(() =>
