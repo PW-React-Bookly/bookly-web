@@ -2,6 +2,8 @@ import {UserInterface} from "../interfaces/userInterface";
 import {FetcherReturnInterface} from "../../common/utils/fetcherReturnInterface";
 import {useEffect, useState} from "react";
 import {GetUserArgsInterface} from "../interfaces/getUserArgsInterface";
+import {useRecoilValue} from "recoil";
+import {refreshAtom} from "../../common/recoil/refreshAtom";
 
 const useGetUsers = (args: GetUserArgsInterface) => {
 
@@ -9,6 +11,7 @@ const useGetUsers = (args: GetUserArgsInterface) => {
     const [isSuccess, setIsSuccess] = useState(false);
     const [error, setError] = useState('');
     const [data, setData] = useState<UserInterface[]>([]);
+    const refresh = useRecoilValue(refreshAtom);
 
     const baseUrl = process.env.REACT_APP_BOOKLY_BACKEND_URL;
     const endpointUrl = `/users?page=${args.currentPage}&pageSize=${args.pageSize}`;
@@ -33,7 +36,7 @@ const useGetUsers = (args: GetUserArgsInterface) => {
                 setIsLoading(false);
             });
         },
-        [args.currentPage])
+        [args.currentPage, refresh])
 
     const result: FetcherReturnInterface ={
         data: data,

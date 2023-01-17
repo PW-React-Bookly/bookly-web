@@ -3,6 +3,8 @@ import {useEffect, useState} from "react";
 import {BookingInterface} from "../interfaces/bookingInterface";
 import {BookingFiltersInterface} from "../interfaces/bookingFiltersInterface";
 import {GetBookingsArgsInterface} from "../interfaces/getBookingsArgsInterface";
+import {useRecoilValue} from "recoil";
+import {refreshAtom} from "../../common/recoil/refreshAtom";
 
 const useGetBookings = (args: GetBookingsArgsInterface) => {
 
@@ -10,6 +12,7 @@ const useGetBookings = (args: GetBookingsArgsInterface) => {
     const [isSuccess, setIsSuccess] = useState(true);
     const [error, setError] = useState('');
     const [data, setData] = useState<BookingInterface[]>([]);
+    const refresh = useRecoilValue(refreshAtom);
 
     const baseUrl = process.env.REACT_APP_BOOKLY_BACKEND_URL;
     const endpointUrl = `/bookings?page=${args.pageContext.currentPage}&pageSize=${args.pageContext.pageSize}`;
@@ -34,7 +37,7 @@ const useGetBookings = (args: GetBookingsArgsInterface) => {
                 setIsLoading(false);
             });
         },
-        [args.pageContext.currentPage, filters])
+        [args.pageContext.currentPage, filters, refresh])
 
     const buildUrl = () => {
         let url = baseUrl + endpointUrl;
