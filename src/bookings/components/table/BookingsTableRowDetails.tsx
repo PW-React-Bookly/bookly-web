@@ -5,19 +5,24 @@ import {Button} from "react-bootstrap";
 import BookingDetailsModal from "./BookingDetailsModal";
 import {CarInterface} from "../../interfaces/car/CarInterface";
 import CarDetailsModal from "../modals/CarDetailsModal";
+import {FlatInterface} from "../../interfaces/flat/FlatInterface";
+import FlatDetailsModal from "../modals/FlatDetailsModal";
+import ParkDetailsModal from "../modals/ParkDetailsModal";
+import {ParkInterface} from "../../interfaces/park/ParkInterface";
 
 const BookingsTableRowDetails = (props: {booking: BookingInterface}) => {
     const [modalShow, setModalShow] = useState(false);
     const [car, setCar] = useState<CarInterface>();
-    // const [flat, setFlat] = useState<FlatInterface>();
-    // const [park, setPark] = useState<ParkInterface>();
+    const [flat, setFlat] = useState<FlatInterface>();
+    const [park, setPark] = useState<ParkInterface>();
 
     useEffect(() => {
         const baseUrl = process.env.REACT_APP_BOOKLY_BACKEND_URL;
+        let endpointUrl;
 
         switch (props.booking.bookableType.toString()) {
             case 'CAR':
-                const endpointUrl = `/cars/${props.booking.itemExternalId}`;
+                endpointUrl = `/cars/${props.booking.itemExternalId}`;
                 fetch(baseUrl + endpointUrl, {
                         method: "GET",
                         mode: 'cors'
@@ -31,6 +36,36 @@ const BookingsTableRowDetails = (props: {booking: BookingInterface}) => {
                     console.log(error);
                 });
                 break;
+            case 'FLAT':
+                endpointUrl = `/flats/${props.booking.itemExternalId}`;
+                fetch(baseUrl + endpointUrl, {
+                        method: "GET",
+                        mode: 'cors'
+                    }
+                ).then(async (response) => {
+                    if (!response.ok)
+                        throw Error(response.statusText);
+                    const flat = await response.json();
+                    setFlat(flat);
+                }).catch((error) => {
+                    console.log(error);
+                });
+                break;
+            case 'PARK':
+                endpointUrl = `/parks/${props.booking.itemExternalId}`;
+                fetch(baseUrl + endpointUrl, {
+                        method: "GET",
+                        mode: 'cors'
+                    }
+                ).then(async (response) => {
+                    if (!response.ok)
+                        throw Error(response.statusText);
+                    const park = await response.json();
+                    setPark(park);
+                }).catch((error) => {
+                    console.log(error);
+                });
+                break;
             default:
                 break;
         }
@@ -40,6 +75,10 @@ const BookingsTableRowDetails = (props: {booking: BookingInterface}) => {
         switch(props.booking.bookableType.toString()) {
             case 'CAR':
                return <CarDetailsModal booking={props.booking} car={car!} show={modalShow} onHide={() => setModalShow(false)} />
+            case 'FLAT':
+                return <FlatDetailsModal booking={props.booking} flat={flat!} show={modalShow} onHide={() => setModalShow(false)} />
+            case 'PARK':
+                return <ParkDetailsModal booking={props.booking} park={park!} show={modalShow} onHide={() => setModalShow(false)} />
             default:
                 return <BookingDetailsModal booking={props.booking} show={modalShow} onHide={() => setModalShow(false)}/>
         }
