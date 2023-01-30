@@ -42,10 +42,10 @@ const SearchPanel = (props : {setFilters: (filters: BookingFiltersInterface) => 
                     </Form.Group>
                 </div>
 
-                <div className="d-flex flex-row mb-3">
-                    <div className="me-2">
-                        <Form.Label>Booking Type</Form.Label>
-                        <InputGroup>
+                <Form.Label>Booking Type</Form.Label>
+                <div className="d-flex flex-row mb-3" style={{width: 600}}>
+                    <div className="me-2" style={{width: 200}} >
+                        <InputGroup style={{flexDirection: "row", width: 200}}>
                             <DropdownButton
                                 variant="outline-secondary"
                                 title={bookableType != undefined? bookableType : "Select type"}
@@ -68,14 +68,15 @@ const SearchPanel = (props : {setFilters: (filters: BookingFiltersInterface) => 
                             </Button>
                         </InputGroup>
                     </div>
-                    <Button variant="secondary" onClick={handleSortPrice} className="ms-auto align-self-end me-2 mb-2">
-                        {(sortType == 'asc' || sortType == undefined) ? 'Sort by Type desc.' : 'Sort by Type asc.'}
-                    </Button>
-                    <Button variant="primary" onClick={search} className="ms-auto align-self-end me-2 mb-2">
-                        Search
-                    </Button>
+                    <div style={{width: 400, flexDirection: "row"}}>
+                        <Button style={{width: 160}} variant="secondary" onClick={handleSortPrice} className="ms-auto align-self-end me-2 mb-2">
+                            {(sortType == 'asc' || sortType == undefined) ? 'Sort by Type desc.' : 'Sort by Type asc.'}
+                        </Button>
+                        <Button variant="primary" onClick={search} className="ms-auto align-self-end me-2 mb-2">
+                            Search
+                        </Button>
+                    </div>
                 </div>
-
             </Form>
         </div>
     )
