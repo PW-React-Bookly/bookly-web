@@ -50,6 +50,9 @@ const useGetBookings = (args: GetBookingsArgsInterface) => {
         if (filters.bookableType != undefined) {
             url+=`&bookableType=${filters.bookableType}`
         }
+        if (filters.sort != undefined) {
+            url+=`&sort=bookableType,${filters.sort}`
+        }
         return url;
     }
 

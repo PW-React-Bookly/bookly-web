@@ -7,13 +7,25 @@ const SearchPanel = (props : {setFilters: (filters: BookingFiltersInterface) => 
     const [bookableType, setBookableType] = useState<BookableType | undefined>();
     const [firstName, setFirstName] = useState<string| undefined>();
     const [lastName, setLastName] = useState<string | undefined>();
+    const [sortType, setSortType] = useState<string | undefined>();
 
     const handleSetBookableType = (e: any) => {
         setBookableType(e);
     }
 
     const search = () => {
-        props.setFilters({bookableType: bookableType, firstName: firstName, lastName: lastName});
+        props.setFilters({bookableType: bookableType, firstName: firstName, lastName: lastName, sort: sortType});
+    }
+
+
+    const sort = (sortData : string | undefined) => {
+        props.setFilters({bookableType: bookableType, firstName: firstName, lastName: lastName, sort: sortData});
+    }
+
+    const handleSortPrice = () => {
+        const sortData = (sortType == 'asc' || sortType == undefined) ? 'desc' : 'asc';
+        setSortType(sortData);
+        sort(sortData);
     }
 
     return (
@@ -56,6 +68,9 @@ const SearchPanel = (props : {setFilters: (filters: BookingFiltersInterface) => 
                             </Button>
                         </InputGroup>
                     </div>
+                    <Button variant="secondary" onClick={handleSortPrice} className="ms-auto align-self-end me-2 mb-2">
+                        {(sortType == 'asc' || sortType == undefined) ? 'Sort by Type desc.' : 'Sort by Type asc.'}
+                    </Button>
                     <Button variant="primary" onClick={search} className="ms-auto align-self-end me-2 mb-2">
                         Search
                     </Button>
